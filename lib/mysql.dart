@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:mysql1/mysql1.dart';
 
 class Mysql {
