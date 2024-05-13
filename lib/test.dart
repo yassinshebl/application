@@ -28,8 +28,7 @@ class _TestState extends State<Test> {
       if (results.isNotEmpty) {
         setState(() {
           mail = results.first[0]
-              .toString()
-              .trim(); // Trim leading/trailing spaces
+              .toString();
         });
       } else {
         setState(() {
