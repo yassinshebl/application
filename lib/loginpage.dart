@@ -46,28 +46,26 @@ class _LoginFormState extends State<LoginForm> {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
-        // Fetch user type from Firestore
-        List<Users> users = await Firestore_Datasource()
-            .getUsersStream()
-            .first; // Wait for the first value emitted by the stream
+        List<Users> users = await Firestore_Datasource().getUsersStream().first;
         Users currentUser = users.firstWhere(
           (user) => user.email == email,
-          orElse: () => Users('', ''), // Default user with empty type and email
+          orElse: () => Users('', ''),
         );
 
         if (currentUser.type == "professor") {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ProfessorInterface()),
+            MaterialPageRoute(
+                builder: (context) => ProfessorInterface(user: currentUser)),
           );
         } else if (currentUser.type == "student") {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => StudentInterface()),
+            MaterialPageRoute(
+                builder: (context) => StudentInterface(user: currentUser)),
           );
         } else {
           print("Unknown user type");
-          // Handle unknown user type
         }
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -108,7 +106,7 @@ class _LoginFormState extends State<LoginForm> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/14-scaled.jpg"),
+          image: AssetImage("assets/1609391092746.png"),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
         ),

@@ -1,8 +1,11 @@
+import 'package:application/user_model.dart';
 import 'package:application/utils/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class ProfessorInterface extends StatelessWidget {
-  const ProfessorInterface({super.key});
+  final Users user;
+
+  const ProfessorInterface({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {

@@ -68,6 +68,7 @@ flutter:
   assets:
     - assets\14-scaled.jpg
     - assets\14-scaled.png
+    - assets\1609391092746.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
