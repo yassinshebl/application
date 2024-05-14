@@ -69,23 +69,26 @@ class _LoginFormState extends State<LoginForm> {
           print("Unknown user type");
           // Handle unknown user type
         }
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: Colors.green,
+            content: Text(
+              "Logged in successfully",
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
+        );
       });
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              "Invalid Email or Password",
-              style: TextStyle(fontSize: 18.0),
-            )));
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              "Invalid Email or Password",
-              style: TextStyle(fontSize: 18.0),
-            )));
-      }
+    } on FirebaseAuthException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.red,
+          content: Text(
+            "Invalid Email or Password",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
     }
   }
 

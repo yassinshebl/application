@@ -1,6 +1,5 @@
 import 'package:application/firebase_options.dart';
 import 'package:application/loginpage.dart';
-import 'package:application/test.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'University App',
-      home: Test(),
+      home: Login(),
       debugShowCheckedModeBanner: false,
     );
   }

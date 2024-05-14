@@ -1,4 +1,4 @@
-import 'package:application/test.dart';
+import 'package:application/loginpage.dart';
 import 'package:application/utils/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Test(),
+                            builder: (context) => const Login(),
                           ),
                         );
                       },
@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const Test(),
+                            builder: (context) => const Login(),
                           ),
                         );
                       },
