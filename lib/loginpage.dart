@@ -46,47 +46,47 @@ class _LoginFormState extends State<LoginForm> {
     setState(() {
       _isLoading = true;
     });
+
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password)
-          .then((value) async {
-        List<Users> users = await FirestoreDatasource().getUsersStream().first;
-        Users currentUser = users.firstWhere(
-          (user) => user.email == email,
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+
+      List<Users> users = await FirestoreDatasource().getUsersStream().first;
+      Users currentUser = users.firstWhere(
+        (user) => user.email == email,
+      );
+
+      if (currentUser.type == "professor") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ProfessorInterface(user: currentUser)),
         );
-        print(currentUser.firstName);
-        if (currentUser.type == "professor") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    ProfessorInterface(profUser: currentUser)),
-          );
-        } else if (currentUser.type == "student") {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => StudentInterface(user: currentUser)),
-          );
-        } else {
-          print("Unknown user type");
-        }
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            backgroundColor: Colors.green,
-            content: Text(
-              "Logged in successfully",
-              style: TextStyle(fontSize: 18.0),
-            ),
-          ),
+      } else if (currentUser.type == "student") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => StudentInterface(user: currentUser)),
         );
-      });
-    } on FirebaseAuthException {
+      } else {
+        print("Unknown user type");
+      }
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text(
+            "Logged in successfully",
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ),
+      );
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           backgroundColor: Colors.red,
           content: Text(
-            "Invalid Email or Password",
+            e.message ?? "Invalid Email or Password",
             style: TextStyle(fontSize: 18.0),
           ),
         ),
