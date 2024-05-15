@@ -1,8 +1,13 @@
 class Users {
-  String type;
-  String email;
-  Users(
-    this.type,
-    this.email,
-  );
+  final String type;
+  final String email;
+  final String firstName;
+  final String lastName;
+
+  Users({
+    required this.type,
+    required this.email,
+    required this.firstName,
+    required this.lastName,
+  });
 }

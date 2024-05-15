@@ -10,8 +10,11 @@ class StudentInterface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.dark,
+      backgroundColor: AppTheme.light,
       appBar: AppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         backgroundColor: AppTheme.accent,
         actions: [
           GestureDetector(
@@ -19,8 +22,7 @@ class StudentInterface extends StatelessWidget {
               // Handle profile section press
             },
             child: const CircleAvatar(
-              // You can replace this with your profile image or icon
-              backgroundImage: AssetImage("assets/profile_picture.png"),
+              backgroundImage: AssetImage("assets\\Snapchat-243070012.jpg"),
             ),
           ),
           const SizedBox(

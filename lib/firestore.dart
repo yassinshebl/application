@@ -1,33 +1,28 @@
 import 'package:application/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class Firestore_Datasource {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
-  Future<bool> CreateUser(String email, String type) async {
-    try {
-      await _firestore.collection('user').doc(_auth.currentUser!.uid).set({
-        "uid": _auth.currentUser!.uid,
-        "email": _auth.currentUser!.email,
-        "type": type,
-      });
-      return true;
-    } catch (e) {
-      return true;
-    }
-  }
+class FirestoreDatasource {
+  final _firestore = FirebaseFirestore.instance;
 
   Stream<List<Users>> getUsersStream() {
-    return _firestore.collection('user').snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final data = doc.data() as Map<String, dynamic>;
-        return Users(
-          data['type'],
-          data['email'],
-        );
-      }).toList();
+    return _firestore.collection('user').snapshots().asyncMap((snapshot) async {
+      List<Users> users = [];
+      for (var doc in snapshot.docs) {
+        var user = _createUserFromSnapshot(doc);
+        users.add(user);
+      }
+      return users;
     });
+  }
+
+  Users _createUserFromSnapshot(DocumentSnapshot doc) {
+    final data = doc.data() as Map<String, dynamic>;
+
+    return Users(
+      type: data['type'] ?? "",
+      email: data['email'] ?? "",
+      firstName: data['firstName'] ?? "",
+      lastName: data['lastName'] ?? "",
+    );
   }
 }

@@ -20,6 +20,21 @@ class DefaultFirebaseOptions {
       return web;
     }
     switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.iOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.macOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         return windows;
       case TargetPlatform.linux:
@@ -36,23 +51,24 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyDvphBkVbT7gIMCxeX4Jo1Ci235RwptGS8',
-    appId: '1:996794007271:web:732139c784d4a795dc6c42',
-    messagingSenderId: '996794007271',
-    projectId: 'gui-app-f9c0c',
-    authDomain: 'gui-app-f9c0c.firebaseapp.com',
-    storageBucket: 'gui-app-f9c0c.appspot.com',
-    measurementId: 'G-BG4J766WT4',
-  );
-
-  static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDvphBkVbT7gIMCxeX4Jo1Ci235RwptGS8',
-    appId: '1:996794007271:web:f136d4feb75dfe31dc6c42',
+    appId: '1:996794007271:web:ee901a106603f2dddc6c42',
     messagingSenderId: '996794007271',
     projectId: 'gui-app-f9c0c',
     authDomain: 'gui-app-f9c0c.firebaseapp.com',
     databaseURL: 'https://gui-app-f9c0c-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'gui-app-f9c0c.appspot.com',
-    measurementId: 'G-HJMXM2X72F',
+    measurementId: 'G-RMCVTR7F14',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyDvphBkVbT7gIMCxeX4Jo1Ci235RwptGS8',
+    appId: '1:996794007271:web:c9b9f25507a8a161dc6c42',
+    messagingSenderId: '996794007271',
+    projectId: 'gui-app-f9c0c',
+    authDomain: 'gui-app-f9c0c.firebaseapp.com',
+    databaseURL: 'https://gui-app-f9c0c-default-rtdb.europe-west1.firebasedatabase.app',
+    storageBucket: 'gui-app-f9c0c.appspot.com',
+    measurementId: 'G-82C4FGZXQE',
   );
 
 }

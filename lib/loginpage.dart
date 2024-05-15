@@ -35,6 +35,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  bool _isLoading = false;
   String email = "", password = "";
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -42,21 +43,24 @@ class _LoginFormState extends State<LoginForm> {
   bool _obscured = true;
 
   userLogin() async {
+    setState(() {
+      _isLoading = true;
+    });
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then((value) async {
-        List<Users> users = await Firestore_Datasource().getUsersStream().first;
+        List<Users> users = await FirestoreDatasource().getUsersStream().first;
         Users currentUser = users.firstWhere(
           (user) => user.email == email,
-          orElse: () => Users('', ''),
         );
-
+        print(currentUser.firstName);
         if (currentUser.type == "professor") {
           Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => ProfessorInterface(user: currentUser)),
+                builder: (context) =>
+                    ProfessorInterface(profUser: currentUser)),
           );
         } else if (currentUser.type == "student") {
           Navigator.push(
@@ -87,6 +91,10 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
       );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -223,16 +231,18 @@ class _LoginFormState extends State<LoginForm> {
                     Column(
                       children: [
                         CustomButton(
-                          text: 'Log in',
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              setState(() {
-                                email = emailController.text;
-                                password = passwordController.text;
-                              });
-                            }
-                            userLogin();
-                          },
+                          text: _isLoading ? 'Logging in...' : 'Log in',
+                          onPressed: _isLoading
+                              ? () {}
+                              : () {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      email = emailController.text;
+                                      password = passwordController.text;
+                                    });
+                                    userLogin();
+                                  }
+                                },
                         ),
                         const SizedBox(height: 20),
                         GestureDetector(
