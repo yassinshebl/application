@@ -1,4 +1,4 @@
-import 'package:application/homepage.dart';
+import 'package:application/loginpage.dart';
 import 'package:application/utils/app_styles.dart';
 import 'package:application/utils/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +34,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           // ignore: use_build_context_synchronously
           context,
           // ignore: prefer_const_constructors
-          MaterialPageRoute(builder: (context) => HomePage()));
+          MaterialPageRoute(builder: (context) => Login()));
     } on FirebaseAuthException catch (e) {
       print("Firebase Exception: ${e.code} - ${e.message}");
       if (e.code == "invalid-email") {

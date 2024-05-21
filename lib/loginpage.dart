@@ -6,7 +6,7 @@ import 'package:application/utils/app_styles.dart';
 import 'package:application/utils/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'student_interface.dart'; // Import the StudentInterface
+import 'student_interface.dart';
 
 final _formKey = GlobalKey<FormState>();
 
@@ -87,7 +87,7 @@ class _LoginFormState extends State<LoginForm> {
           backgroundColor: Colors.red,
           content: Text(
             e.message ?? "Invalid Email or Password",
-            style: TextStyle(fontSize: 18.0),
+            style: const TextStyle(fontSize: 18.0),
           ),
         ),
       );
